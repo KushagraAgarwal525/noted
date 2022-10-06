@@ -52,3 +52,18 @@
   flex: auto;
   text-align: right;
 }
+
+.hidden {
+    display: none;
+}
+
+.btn-link {
+    background-color: transparent;
+    border: none;
+    color: #314d3e;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    text-decoration: underline;
+}
