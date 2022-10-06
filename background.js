@@ -4,12 +4,6 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Highlight",
     contexts: ["selection"],
   });
-
-  chrome.contextMenus.create({
-    id: "addNote",
-    title: "Add Note",
-    contexts: ["selection"],
-  });
 });
 
 chrome.contextMenus.onClicked.addListener((item, tab) => {
@@ -19,21 +13,30 @@ chrome.contextMenus.onClicked.addListener((item, tab) => {
       type: "ADD_HIGHLIGHT",
       text,
     });
-    console.log(text);
-  } else if (item.menuItemId === "addNote") {
-    chrome.tabs.sendMessage(tab.id, {
-      type: "ADD_NOTE",
-      text,
-    });
-    console.log(text);
   }
+  //   else if (item.menuItemId === "addNote") {
+  //     chrome.tabs.sendMessage(tab.id, {
+  //       type: "ADD_NOTE",
+  //       text,
+  //     });
+  //   }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, tab) => {
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (tab.url) {
-    chrome.tabs.sendMessage(tabId, {
-      type: "NEW",
-      webUrl: tab.url,
-    });
+    chrome.tabs.sendMessage(
+      tabId,
+      {
+        type: "NEW",
+        webUrl: tab.url,
+        tabId,
+      },
+      function (response) {
+        //On response alert the response
+        console.log(
+          "The response from the content script: " + response.response
+        ); //You have to choose which part of the response you want to display ie. response.response
+      }
+    );
   }
 });
