@@ -10,7 +10,6 @@ import {
   newNote,
   fillNotes,
   shareSiteNotes,
-  copyTextToClipboard,
 } from "./utils.js";
 
 registerForm.addEventListener("submit", async (e) => {
@@ -60,12 +59,11 @@ document.querySelector(".share-notes").addEventListener("submit", async (e) => {
   e.preventDefault();
   const user = JSON.parse(localStorage.getItem("user")).username;
   const withUsername = e.target["username"].value;
-  console.log(user, withUsername, user === withUsername);
   if (user === withUsername) return;
   await shareSiteNotes(user, withUsername);
 });
 
-document.querySelector("#copy-url").addEventListener("click", (e) => {
-  const url = e.target.previousSibling.previousSibling.value;
-  copyTextToClipboard(url);
-});
+// document.querySelector("#copy-url").addEventListener("click", (e) => {
+//   const url = e.target.previousSibling.previousSibling.value;
+//   copyTextToClipboard(url);
+// });

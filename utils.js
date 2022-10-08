@@ -142,11 +142,11 @@ export const shareSiteNotes = async (username, withUsername) => {
     }
   );
   shareForm.reset();
-  const shareUrl = `${url}?usp=share`;
-  document.querySelector(".url-div").classList.remove("hidden");
-  const urlInput = document.querySelector("#url");
-  urlInput.value = shareUrl;
-  urlInput.select();
+//   const shareUrl = `${url}?usp=share`;
+//   document.querySelector(".url-div").classList.remove("hidden");
+//   const urlInput = document.querySelector("#url");
+//   urlInput.value = shareUrl;
+//   urlInput.select();
   return addSharedUser;
 };
 
