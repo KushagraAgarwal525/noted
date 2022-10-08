@@ -11,8 +11,8 @@ let registerForm, loginForm, noteForm;
         registerForm = document.querySelector("#register-form");
         loginForm = document.querySelector("#login-form");
         noteForm = document.querySelector("#note-form");
-        newWebsiteOpened();
-      });
+    });
+    newWebsiteOpened();
       response({
         response: "new website opened",
       });
@@ -52,7 +52,6 @@ let registerForm, loginForm, noteForm;
 
   const newWebsiteOpened = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
     token ? showNoteForm() : showLogin();
   };
 })();
