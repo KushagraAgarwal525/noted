@@ -8,10 +8,10 @@ import {
   register,
   login,
   newNote,
-  fillNotes
+  fillNotes,
+  shareSiteNotes,
+  copyTextToClipboard,
 } from "./utils.js";
-
-let currentTab;
 
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -39,12 +39,13 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
-noteForm.addEventListener("submit", (e) => {
+noteForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const noteTextArea = document.querySelector("#note");
   const note = noteTextArea.value;
   noteTextArea.value = "";
-  newNote(note);
+  await newNote(note);
+  fillNotes();
 });
 
 document.querySelector("#switch-to-register").addEventListener("click", () => {
@@ -55,4 +56,16 @@ document.querySelector("#switch-to-login").addEventListener("click", () => {
   showLogin();
 });
 
+document.querySelector(".share-notes").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const user = JSON.parse(localStorage.getItem("user")).username;
+  const withUsername = e.target["username"].value;
+  console.log(user, withUsername, user === withUsername);
+  if (user === withUsername) return;
+  await shareSiteNotes(user, withUsername);
+});
 
+document.querySelector("#copy-url").addEventListener("click", (e) => {
+  const url = e.target.previousSibling.previousSibling.value;
+  copyTextToClipboard(url);
+});
